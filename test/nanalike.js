@@ -1,6 +1,26 @@
 (function() {
     const $listingCardList = document.querySelector('.listing-card__list');
     let page = 1;
+    let timer = null;
+    window.addEventListener('scroll', function() {
+        if(!timer) {
+            timer = setTimeout(function() {
+                timer = null;
+                
+                const {
+                    scrollTop,
+                    scrollHeight,
+                    clientHeight
+                } = document.documentElement;
+    
+                if (scrollTop + clientHeight >= scrollHeight - 5) {
+                    itemLength = 0;
+                    getData();
+                }
+            }, 200);
+        }
+    });
+
     function getData() {
         const options = {
             method: 'GET',
